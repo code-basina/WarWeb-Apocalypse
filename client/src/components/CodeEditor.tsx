@@ -67,26 +67,28 @@ export function CodeEditor({
     const createEditor = () => {
       if (!containerRef.current || !window.monaco) return;
 
-      // Define cyberpunk theme
+      // Define cyberpunk theme - Darker
       window.monaco.editor.defineTheme('cyberpunk', {
         base: 'vs-dark',
         inherit: true,
         rules: [
-          { token: 'comment', foreground: '#B0B0B0', fontStyle: 'italic' },
-          { token: 'keyword', foreground: '#00FFFF' },
-          { token: 'string', foreground: '#00FF41' },
-          { token: 'number', foreground: '#FF6B00' },
-          { token: 'tag', foreground: '#8B00FF' },
-          { token: 'attribute.name', foreground: '#00FFFF' },
-          { token: 'attribute.value', foreground: '#00FF41' },
+          { token: 'comment', foreground: '#666666', fontStyle: 'italic' },
+          { token: 'keyword', foreground: '#00E6E6' },
+          { token: 'string', foreground: '#00E600' },
+          { token: 'number', foreground: '#FF8C00' },
+          { token: 'tag', foreground: '#CC00FF' },
+          { token: 'attribute.name', foreground: '#00E6E6' },
+          { token: 'attribute.value', foreground: '#00E600' },
         ],
         colors: {
-          'editor.background': '#0A0A0A',
-          'editor.foreground': '#FFFFFF',
-          'editorLineNumber.foreground': '#B0B0B0',
-          'editorLineNumber.activeForeground': '#00FFFF',
-          'editor.selectionBackground': '#8B00FF33',
-          'editor.lineHighlightBackground': '#1A1A1A',
+          'editor.background': '#020202',
+          'editor.foreground': '#F0F0F0',
+          'editorLineNumber.foreground': '#555555',
+          'editorLineNumber.activeForeground': '#00E6E6',
+          'editor.selectionBackground': '#CC00FF22',
+          'editor.lineHighlightBackground': '#0A0A0A',
+          'editor.inactiveSelectionBackground': '#333333',
+          'editorCursor.foreground': '#00E6E6',
         }
       });
 

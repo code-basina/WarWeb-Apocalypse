@@ -5,34 +5,34 @@
 @tailwind utilities;
 
 :root {
-  --background: hsl(0, 0%, 4%);
-  --foreground: hsl(0, 0%, 100%);
-  --card: hsl(0, 0%, 10%);
-  --card-foreground: hsl(0, 0%, 100%);
-  --popover: hsl(0, 0%, 4%);
-  --popover-foreground: hsl(0, 0%, 100%);
-  --primary: hsl(180, 100%, 50%);
+  --background: hsl(0, 0%, 2%);
+  --foreground: hsl(0, 0%, 95%);
+  --card: hsl(0, 0%, 3%);
+  --card-foreground: hsl(0, 0%, 95%);
+  --popover: hsl(0, 0%, 2%);
+  --popover-foreground: hsl(0, 0%, 95%);
+  --primary: hsl(180, 100%, 45%);
   --primary-foreground: hsl(0, 0%, 0%);
-  --secondary: hsl(0, 0%, 10%);
-  --secondary-foreground: hsl(0, 0%, 100%);
-  --muted: hsl(0, 0%, 69%);
-  --muted-foreground: hsl(0, 0%, 45%);
-  --accent: hsl(0, 0%, 10%);
-  --accent-foreground: hsl(0, 0%, 100%);
-  --destructive: hsl(0, 84%, 60%);
-  --destructive-foreground: hsl(0, 0%, 100%);
-  --border: hsl(180, 100%, 50%);
-  --input: hsl(0, 0%, 10%);
-  --ring: hsl(180, 100%, 50%);
+  --secondary: hsl(0, 0%, 5%);
+  --secondary-foreground: hsl(0, 0%, 95%);
+  --muted: hsl(0, 0%, 50%);
+  --muted-foreground: hsl(0, 0%, 35%);
+  --accent: hsl(0, 0%, 5%);
+  --accent-foreground: hsl(0, 0%, 95%);
+  --destructive: hsl(0, 84%, 55%);
+  --destructive-foreground: hsl(0, 0%, 95%);
+  --border: hsl(180, 100%, 45%);
+  --input: hsl(0, 0%, 5%);
+  --ring: hsl(180, 100%, 45%);
   
-  /* Custom Cyber Colors */
-  --cyber-cyan: hsl(180, 100%, 50%);
-  --cyber-green: hsl(123, 100%, 50%);
-  --cyber-purple: hsl(277, 100%, 50%);
+  /* Custom Cyber Colors - Darker */
+  --cyber-cyan: hsl(180, 100%, 45%);
+  --cyber-green: hsl(123, 100%, 45%);
+  --cyber-purple: hsl(277, 100%, 45%);
   --cyber-orange: hsl(26, 100%, 50%);
-  --cyber-dark: hsl(0, 0%, 4%);
-  --cyber-gray: hsl(0, 0%, 10%);
-  --cyber-muted: hsl(0, 0%, 69%);
+  --cyber-dark: hsl(0, 0%, 2%);
+  --cyber-gray: hsl(0, 0%, 6%);
+  --cyber-muted: hsl(0, 0%, 40%);
   
   /* Custom Fonts */
   --font-orbitron: 'Orbitron', sans-serif;
@@ -43,25 +43,25 @@
 }
 
 .dark {
-  --background: hsl(0, 0%, 4%);
-  --foreground: hsl(0, 0%, 100%);
-  --card: hsl(0, 0%, 10%);
-  --card-foreground: hsl(0, 0%, 100%);
-  --popover: hsl(0, 0%, 4%);
-  --popover-foreground: hsl(0, 0%, 100%);
-  --primary: hsl(180, 100%, 50%);
+  --background: hsl(0, 0%, 1%);
+  --foreground: hsl(0, 0%, 95%);
+  --card: hsl(0, 0%, 2%);
+  --card-foreground: hsl(0, 0%, 95%);
+  --popover: hsl(0, 0%, 1%);
+  --popover-foreground: hsl(0, 0%, 95%);
+  --primary: hsl(180, 100%, 45%);
   --primary-foreground: hsl(0, 0%, 0%);
-  --secondary: hsl(0, 0%, 10%);
-  --secondary-foreground: hsl(0, 0%, 100%);
-  --muted: hsl(0, 0%, 69%);
-  --muted-foreground: hsl(0, 0%, 45%);
-  --accent: hsl(0, 0%, 10%);
-  --accent-foreground: hsl(0, 0%, 100%);
-  --destructive: hsl(0, 84%, 60%);
-  --destructive-foreground: hsl(0, 0%, 100%);
-  --border: hsl(180, 100%, 50%);
-  --input: hsl(0, 0%, 10%);
-  --ring: hsl(180, 100%, 50%);
+  --secondary: hsl(0, 0%, 3%);
+  --secondary-foreground: hsl(0, 0%, 95%);
+  --muted: hsl(0, 0%, 50%);
+  --muted-foreground: hsl(0, 0%, 30%);
+  --accent: hsl(0, 0%, 3%);
+  --accent-foreground: hsl(0, 0%, 95%);
+  --destructive: hsl(0, 84%, 55%);
+  --destructive-foreground: hsl(0, 0%, 95%);
+  --border: hsl(180, 100%, 45%);
+  --input: hsl(0, 0%, 3%);
+  --ring: hsl(180, 100%, 45%);
 }
 
 @layer base {

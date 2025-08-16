@@ -7,7 +7,7 @@ interface LandingScreenProps {
 
 export function LandingScreen({ onStartGame }: LandingScreenProps) {
   return (
-    <div className="min-h-screen flex items-center justify-center relative bg-gradient-to-br from-cyber-dark via-cyber-gray to-cyber-dark">
+    <div className="min-h-screen flex items-center justify-center relative bg-gradient-to-br from-black via-cyber-dark to-black">
       {/* Background Effects */}
       <div className="absolute inset-0 opacity-20">
         <div className="absolute top-0 left-1/4 w-px h-full bg-gradient-to-b from-cyber-green to-transparent opacity-50"></div>

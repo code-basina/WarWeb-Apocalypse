@@ -9,9 +9,9 @@ interface StoryScreenProps {
 
 export function StoryScreen({ gameState, onStartLevel, onBackToMenu }: StoryScreenProps) {
   return (
-    <div className="min-h-screen bg-cyber-dark">
+    <div className="min-h-screen bg-black">
       <div 
-        className="relative min-h-screen bg-gradient-to-b from-cyber-gray to-cyber-dark"
+        className="relative min-h-screen bg-gradient-to-b from-cyber-dark to-black"
         style={{
           backgroundImage: "url('https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=1200&h=800&fit=crop&crop=entropy&auto=format&q=60')",
           backgroundSize: 'cover',
@@ -19,7 +19,7 @@ export function StoryScreen({ gameState, onStartLevel, onBackToMenu }: StoryScre
           backgroundBlendMode: 'overlay'
         }}
       >
-        <div className="absolute inset-0 bg-cyber-dark/70"></div>
+        <div className="absolute inset-0 bg-black/80"></div>
         
         <div className="relative z-10 container mx-auto px-6 py-12 max-w-4xl">
           <div className="cyber-border bg-cyber-gray/30 backdrop-blur-sm p-8 animate-slide-up">

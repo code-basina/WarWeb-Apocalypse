@@ -57,7 +57,7 @@ export function GameLevel({ level, gameState, onSuccess, onPause }: GameLevelPro
   };
 
   return (
-    <div className="min-h-screen bg-cyber-dark">
+    <div className="min-h-screen bg-black">
       {/* Level Header */}
       <div className="bg-cyber-gray border-b border-cyber-cyan/30 p-4">
         <div className="container mx-auto max-w-7xl flex flex-wrap items-center justify-between">
