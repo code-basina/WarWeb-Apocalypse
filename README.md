@@ -1,6 +1,3 @@
-حتماً! من بخش مربوط به سازنده رو هم به README اضافه می‌کنم. نسخه ویرایش‌شده به شکل زیر است:
-
-
  Web War: Apocalypse
 
 Web War: Apocalypse is an educational web game designed to teach teenagers the basics of **web development** in a fun and interactive way. Players learn programming concepts by progressing through challenges, solving coding puzzles, and customizing their in-game environment.
@@ -74,12 +71,3 @@ Created by **Sina Jafarzadeh** ❤️
 ---
 
 Made with ❤️ for aspiring web developers.
-
-```
-
----
-
-اگه بخوای، می‌تونم یه نسخه **گرافیکی و حرفه‌ای‌تر با آیکون‌ها و GIF از گیم‌پلی** هم آماده کنم که README روی GitHub خیلی جذاب به نظر برسه.  
-
-میخوای برات اون نسخه رو بسازم؟
-```
