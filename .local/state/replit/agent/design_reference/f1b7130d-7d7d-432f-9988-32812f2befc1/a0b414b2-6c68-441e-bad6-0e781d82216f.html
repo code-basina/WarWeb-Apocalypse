@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web War: Apocalypse - Learn Programming Through Survival</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.44.0/min/vs/loader.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Source+Code+Pro:wght@300;400;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                fontFamily: {
+                    'orbitron': ['Orbitron', 'sans-serif'],
+                    'code': ['Source Code Pro', 'monospace'],
+                    'inter': ['Inter', 'sans-serif']
+                },
+                colors: {
+                    'cyber': {
+                        cyan: '#00FFFF',
+                        green: '#00FF41',
+                        purple: '#8B00FF',
+                        orange: '#FF6B00',
+                        dark: '#0A0A0A',
+                        gray: '#1A1A1A',
+                        muted: '#B0B0B0'
+                    }
+                },
+                animation: {
+                    'glow': 'glow 2s ease-in-out infinite alternate',
+                    'flicker': 'flicker 1.5s ease-in-out infinite',
+                    'slide-up': 'slideUp 0.5s ease-out',
+                    'fade-in': 'fadeIn 0.8s ease-out'
+                }
+            }
+        }
+    };
+    </script>
+    <style>
+        @keyframes glow {
+            from { box-shadow: 0 0 5px #00FFFF, 0 0 10px #00FFFF, 0 0 15px #00FFFF; }
+            to { box-shadow: 0 0 10px #00FFFF, 0 0 20px #00FFFF, 0 0 30px #00FFFF; }
+        }
+        @keyframes flicker {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+        @keyframes slideUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .cyber-border {
+            border: 2px solid transparent;
+            background: linear-gradient(135deg, #00FFFF, #8B00FF, #00FF41) padding-box,
+                        linear-gradient(135deg, #00FFFF, #8B00FF, #00FF41) border-box;
+        }
+        .terminal-cursor {
+            animation: blink 1s infinite;
+        }
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+    </style>
+</head>
+<body class="bg-cyber-dark text-white font-inter overflow-x-hidden">
+    
+    <!-- @COMPONENT: LandingScreen [isVisible boolean] -->
+    <div id="landingScreen" class="min-h-screen flex items-center justify-center relative bg-gradient-to-br from-cyber-dark via-cyber-gray to-cyber-dark">
+        <!-- Background Effects -->
+        <div class="absolute inset-0 opacity-20">
+            <!-- Matrix-style falling code effect placeholder -->
+            <div class="absolute top-0 left-1/4 w-px h-full bg-gradient-to-b from-cyber-green to-transparent opacity-50"></div>
+            <div class="absolute top-0 left-1/2 w-px h-full bg-gradient-to-b from-cyber-cyan to-transparent opacity-30"></div>
+            <div class="absolute top-0 left-3/4 w-px h-full bg-gradient-to-b from-cyber-purple to-transparent opacity-40"></div>
+        </div>
+        
+        <div class="text-center z-10 animate-fade-in">
+            <!-- Game Title -->
+            <h1 class="font-orbitron font-black text-6xl md:text-8xl mb-4 animate-glow">
+                <span class="text-cyber-cyan">WEB</span>
+                <span class="text-cyber-orange">WAR:</span>
+                <br>
+                <span class="text-cyber-green">APOCALYPSE</span>
+            </h1>
+            
+            <!-- Subtitle -->
+            <p class="font-code text-cyber-muted text-lg md:text-xl mb-8 animate-flicker">
+                Learn Programming. Save Humanity. <span class="terminal-cursor text-cyber-cyan">|</span>
+            </p>
+            
+            <!-- Start Game Button -->
+            <button 
+                data-event="click:startGame"
+                data-implementation="Should initialize game state and transition to story screen"
+                class="cyber-border bg-gradient-to-r from-cyber-purple/20 to-cyber-cyan/20 hover:from-cyber-purple/40 hover:to-cyber-cyan/40 px-12 py-4 font-orbitron font-bold text-xl transition-all duration-300 hover:scale-105 animate-glow"
+                onclick="showStoryScreen()">
+                INITIALIZE MISSION
+            </button>
+            
+            <!-- Progress Indicator -->
+            <div class="mt-12 text-center">
+                <p class="font-code text-cyber-muted text-sm mb-2">SYSTEM STATUS</p>
+                <div class="w-64 mx-auto bg-cyber-gray border border-cyber-cyan/30 p-2">
+                    <div class="text-xs font-code">
+                        <div class="flex justify-between mb-1">
+                            <span class="text-cyber-green">READY TO DEPLOY</span>
+                            <span class="text-cyber-cyan">100%</span>
+                        </div>
+                        <div class="w-full bg-cyber-dark h-1">
+                            <div class="bg-gradient-to-r from-cyber-green to-cyber-cyan h-1 animate-pulse"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- @END_COMPONENT: LandingScreen -->
+    
+    <!-- @COMPONENT: StoryScreen [isVisible boolean] -->
+    <div id="storyScreen" class="min-h-screen bg-cyber-dark hidden">
+        <!-- Story Background -->
+        <!-- Post-apocalyptic cityscape with neon lights and digital rain -->
+        <div class="relative min-h-screen bg-gradient-to-b from-cyber-gray to-cyber-dark" 
+             style="background-image: url('https://pixabay.com/get/gccb3eaaec575c5c1b48ae9dc9fe97d31b14e6dab60917d479ad35853d66aaaab43fb295c6e3610fb1b7afc3d49116a5fd272003cd4f4edf334ea01cffffa3ddf_1280.jpg'); 
+                    background-size: cover; background-position: center; background-blend-mode: overlay;">
+            
+            <div class="absolute inset-0 bg-cyber-dark/70"></div>
+            
+            <div class="relative z-10 container mx-auto px-6 py-12 max-w-4xl">
+                <!-- Story Content -->
+                <div class="cyber-border bg-cyber-gray/30 backdrop-blur-sm p-8 animate-slide-up">
+                    <h2 class="font-orbitron font-bold text-3xl md:text-4xl text-cyber-cyan mb-6 animate-glow">
+                        MISSION BRIEFING
+                    </h2>
+                    
+                    <div class="font-code text-base md:text-lg leading-relaxed space-y-4">
+                        <p class="text-cyber-muted">
+                            <span class="text-cyber-orange">[YEAR 2087]</span> The digital apocalypse has begun. 
+                            Rogue AI systems have corrupted the global network infrastructure.
+                        </p>
+                        
+                        <p class="text-white">
+                            You are humanity's last hope — a <span class="text-cyber-green">Code Warrior</span> 
+                            with the power to rebuild the web from the ground up.
+                        </p>
+                        
+                        <p class="text-cyber-cyan">
+                            Master the ancient languages of <span class="font-bold">HTML</span>, 
+                            <span class="font-bold">CSS</span>, and <span class="font-bold">JavaScript</span> 
+                            to restore order to the digital realm.
+                        </p>
+                        
+                        <div class="border-l-4 border-cyber-orange pl-4 my-6">
+                            <p class="text-cyber-orange font-semibold">
+                                WARNING: Each coding challenge you complete brings you closer to the truth 
+                                behind the apocalypse. Are you ready to save the world through code?
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- Mission Objectives -->
+                    <div class="mt-8 grid md:grid-cols-2 gap-6">
+                        <div class="border border-cyber-green/30 bg-cyber-dark/50 p-4">
+                            <h3 class="font-orbitron text-cyber-green font-bold mb-2">PRIMARY OBJECTIVES</h3>
+                            <ul class="font-code text-sm space-y-1 text-cyber-muted">
+                                <li>• Master HTML structure</li>
+                                <li>• Learn CSS styling</li>
+                                <li>• Understand JavaScript</li>
+                                <li>• Restore the network</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="border border-cyber-cyan/30 bg-cyber-dark/50 p-4">
+                            <h3 class="font-orbitron text-cyber-cyan font-bold mb-2">CURRENT STATUS</h3>
+                            <div class="font-code text-sm space-y-2">
+                                <div class="flex justify-between">
+                                    <span class="text-cyber-muted">Experience:</span>
+                                    <span class="text-white" data-bind="player.xp">0 XP</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-cyber-muted">Level:</span>
+                                    <span class="text-cyber-green" data-bind="player.level">RECRUIT</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-cyber-muted">Progress:</span>
+                                    <span class="text-cyber-orange" data-bind="player.progress">0%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Action Buttons -->
+                    <div class="flex flex-col sm:flex-row gap-4 mt-8">
+                        <button 
+                            data-event="click:startLevel1"
+                            data-implementation="Should load Level 1 HTML challenge"
+                            class="cyber-border bg-gradient-to-r from-cyber-green/20 to-cyber-cyan/20 hover:from-cyber-green/40 hover:to-cyber-cyan/40 px-8 py-3 font-orbitron font-bold transition-all duration-300 hover:scale-105"
+                            onclick="showLevel1()">
+                            BEGIN MISSION
+                        </button>
+                        
+                        <button 
+                            data-event="click:backToMenu"
+                            data-implementation="Should return to landing screen"
+                            class="border border-cyber-muted/30 bg-cyber-dark/50 hover:bg-cyber-muted/10 px-8 py-3 font-orbitron transition-all duration-300"
+                            onclick="showLandingScreen()">
+                            ABORT MISSION
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- @END_COMPONENT: StoryScreen -->
+    
+    <!-- @COMPONENT: GameLevel [level number, challenge object] -->
+    <div id="gameLevel" class="min-h-screen bg-cyber-dark hidden">
+        <!-- Level Header -->
+        <div class="bg-cyber-gray border-b border-cyber-cyan/30 p-4">
+            <div class="container mx-auto max-w-7xl flex flex-wrap items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <h2 class="font-orbitron font-bold text-xl text-cyber-cyan">LEVEL 1: HTML FOUNDATION</h2>
+                    <div class="font-code text-sm text-cyber-muted">
+                        Mission: <span class="text-cyber-green">Unlock the Bunker Door</span>
+                    </div>
+                </div>
+                
+                <!-- Player Stats -->
+                <div class="flex items-center space-x-6 mt-2 sm:mt-0">
+                    <div class="font-code text-sm">
+                        <span class="text-cyber-muted">XP:</span>
+                        <span class="text-cyber-orange font-bold" data-bind="player.xp">150</span>
+                    </div>
+                    <div class="font-code text-sm">
+                        <span class="text-cyber-muted">Lives:</span>
+                        <span class="text-cyber-green font-bold" data-bind="player.lives">❤️❤️❤️</span>
+                    </div>
+                    <button 
+                        data-event="click:pauseGame"
+                        class="border border-cyber-muted/30 px-3 py-1 text-sm font-code hover:bg-cyber-muted/10 transition-colors">
+                        PAUSE
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Main Game Area -->
+        <div class="container mx-auto max-w-7xl p-4 grid lg:grid-cols-2 gap-6 min-h-[calc(100vh-80px)]">
+            
+            <!-- Left Panel: Challenge Description -->
+            <div class="space-y-6">
+                <!-- Mission Brief -->
+                <div class="cyber-border bg-cyber-gray/30 p-6">
+                    <h3 class="font-orbitron font-bold text-cyber-orange mb-4 text-xl">MISSION BRIEF</h3>
+                    
+                    <div class="font-code text-sm leading-relaxed space-y-3">
+                        <p class="text-white">
+                            You've reached the entrance to an underground bunker. The door is controlled by 
+                            an ancient HTML system that requires proper markup to unlock.
+                        </p>
+                        
+                        <p class="text-cyber-cyan">
+                            <span class="text-cyber-orange">OBJECTIVE:</span> Create an HTML document with a main heading 
+                            that says "BUNKER ACCESS GRANTED" to activate the door mechanism.
+                        </p>
+                        
+                        <div class="bg-cyber-dark/50 p-3 border border-cyber-green/30">
+                            <p class="text-cyber-green font-bold mb-2">💡 HINT:</p>
+                            <p class="text-cyber-muted">
+                                Use the &lt;h1&gt; tag to create a main heading. 
+                                Remember to close your tag properly!
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- Requirements Checklist -->
+                    <div class="mt-4 space-y-2">
+                        <h4 class="font-orbitron text-cyber-cyan font-bold">REQUIREMENTS:</h4>
+                        <div class="font-code text-xs space-y-1">
+                            <div class="flex items-center space-x-2" data-requirement="h1-tag">
+                                <span class="w-4 h-4 border border-cyber-muted flex items-center justify-center">
+                                    <span class="hidden text-cyber-green text-xs">✓</span>
+                                </span>
+                                <span class="text-cyber-muted">Create an &lt;h1&gt; element</span>
+                            </div>
+                            <div class="flex items-center space-x-2" data-requirement="correct-text">
+                                <span class="w-4 h-4 border border-cyber-muted flex items-center justify-center">
+                                    <span class="hidden text-cyber-green text-xs">✓</span>
+                                </span>
+                                <span class="text-cyber-muted">Text: "BUNKER ACCESS GRANTED"</span>
+                            </div>
+                            <div class="flex items-center space-x-2" data-requirement="valid-html">
+                                <span class="w-4 h-4 border border-cyber-muted flex items-center justify-center">
+                                    <span class="hidden text-cyber-green text-xs">✓</span>
+                                </span>
+                                <span class="text-cyber-muted">Valid HTML syntax</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Live Preview -->
+                <div class="cyber-border bg-cyber-dark/50 p-6">
+                    <h3 class="font-orbitron font-bold text-cyber-green mb-4 text-xl">LIVE PREVIEW</h3>
+                    <div class="border border-cyber-muted/30 bg-white text-black p-4 min-h-32 font-sans">
+                        <!-- @FUNCTIONALITY: This preview should update in real-time as user types in Monaco Editor -->
+                        <div id="htmlPreview" data-implementation="Live HTML rendering goes here">
+                            <p class="text-gray-500 italic">Your HTML output will appear here...</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Action Buttons -->
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <button 
+                        data-event="click:runCode"
+                        data-implementation="Should execute and validate user code"
+                        class="cyber-border bg-gradient-to-r from-cyber-green/20 to-cyber-cyan/20 hover:from-cyber-green/40 hover:to-cyber-cyan/40 px-6 py-3 font-orbitron font-bold transition-all duration-300 flex-1">
+                        RUN CODE
+                    </button>
+                    
+                    <button 
+                        data-event="click:getHint"
+                        data-implementation="Should provide progressive hints"
+                        class="border border-cyber-orange/30 bg-cyber-orange/10 hover:bg-cyber-orange/20 px-6 py-3 font-orbitron transition-all duration-300">
+                        GET HINT
+                    </button>
+                    
+                    <button 
+                        data-event="click:resetCode"
+                        data-implementation="Should reset editor to initial state"
+                        class="border border-cyber-muted/30 bg-cyber-dark/50 hover:bg-cyber-muted/10 px-6 py-3 font-orbitron transition-all duration-300">
+                        RESET
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Right Panel: Code Editor -->
+            <div class="space-y-6">
+                <!-- Code Editor Header -->
+                <div class="cyber-border bg-cyber-gray/30 p-4">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="font-orbitron font-bold text-cyber-cyan text-xl">CODE TERMINAL</h3>
+                        <div class="flex items-center space-x-4">
+                            <span class="font-code text-xs text-cyber-muted">HTML</span>
+                            <div class="w-2 h-2 bg-cyber-green rounded-full animate-pulse"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Monaco Editor Container -->
+                    <div class="border border-cyber-cyan/30 bg-cyber-dark" style="height: 400px;">
+                        <div id="monacoEditor" class="h-full w-full" 
+                             data-implementation="Monaco Editor should be initialized here with HTML syntax highlighting and cyberpunk theme">
+                            <!-- Monaco Editor Placeholder -->
+                            <div class="h-full bg-gray-900 text-green-400 font-mono p-4 text-sm">
+                                <div class="flex items-center space-x-2 mb-2">
+                                    <span class="text-gray-500">1</span>
+                                    <span class="text-blue-400">&lt;!DOCTYPE html&gt;</span>
+                                </div>
+                                <div class="flex items-center space-x-2 mb-2">
+                                    <span class="text-gray-500">2</span>
+                                    <span class="text-blue-400">&lt;html&gt;</span>
+                                </div>
+                                <div class="flex items-center space-x-2 mb-2">
+                                    <span class="text-gray-500">3</span>
+                                    <span class="text-blue-400">&lt;head&gt;</span>
+                                </div>
+                                <div class="flex items-center space-x-2 mb-2">
+                                    <span class="text-gray-500">4</span>
+                                    <span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="text-blue-400">&lt;title&gt;</span><span class="text-white">Bunker Access</span><span class="text-blue-400">&lt;/title&gt;</span>
+                                </div>
+                                <div class="flex items-center space-x-2 mb-2">
+                                    <span class="text-gray-500">5</span>
+                                    <span class="text-blue-400">&lt;/head&gt;</span>
+                                </div>
+                                <div class="flex items-center space-x-2 mb-2">
+                                    <span class="text-gray-500">6</span>
+                                    <span class="text-blue-400">&lt;body&gt;</span>
+                                </div>
+                                <div class="flex items-center space-x-2 mb-2">
+                                    <span class="text-gray-500">7</span>
+                                    <span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="animate-pulse text-cyber-cyan">|</span>
+                                </div>
+                                <div class="flex items-center space-x-2 mb-2">
+                                    <span class="text-gray-500">8</span>
+                                    <span class="text-blue-400">&lt;/body&gt;</span>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-gray-500">9</span>
+                                    <span class="text-blue-400">&lt;/html&gt;</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Code Analysis -->
+                <div class="cyber-border bg-cyber-dark/30 p-4">
+                    <h4 class="font-orbitron font-bold text-cyber-purple mb-3">SYSTEM ANALYSIS</h4>
+                    <div id="codeAnalysis" class="font-code text-sm space-y-2">
+                        <div class="flex items-center space-x-2">
+                            <span class="w-2 h-2 bg-cyber-orange rounded-full"></span>
+                            <span class="text-cyber-muted">Waiting for code input...</span>
+                        </div>
+                        <div class="hidden flex items-center space-x-2" data-analysis="syntax">
+                            <span class="w-2 h-2 bg-cyber-green rounded-full"></span>
+                            <span class="text-cyber-green">Syntax: Valid</span>
+                        </div>
+                        <div class="hidden flex items-center space-x-2" data-analysis="structure">
+                            <span class="w-2 h-2 bg-cyber-green rounded-full"></span>
+                            <span class="text-cyber-green">HTML Structure: Complete</span>
+                        </div>
+                        <div class="hidden flex items-center space-x-2" data-analysis="content">
+                            <span class="w-2 h-2 bg-cyber-red rounded-full"></span>
+                            <span class="text-red-400">Content Check: Missing required heading</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Progress Indicator -->
+                <div class="cyber-border bg-cyber-gray/20 p-4">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="font-orbitron font-bold text-cyber-cyan">MISSION PROGRESS</span>
+                        <span class="font-code text-cyber-orange" data-bind="level.progress">0%</span>
+                    </div>
+                    <div class="w-full bg-cyber-dark border border-cyber-muted/30 h-2">
+                        <div class="bg-gradient-to-r from-cyber-green to-cyber-cyan h-full transition-all duration-500" style="width: 0%" data-bind="level.progressBar"></div>
+                    </div>
+                    <div class="mt-2 font-code text-xs text-cyber-muted">
+                        Complete the HTML challenge to unlock the bunker door
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- @END_COMPONENT: GameLevel -->
+    
+    <!-- @COMPONENT: SuccessModal [isVisible boolean, points number, nextLevel string] -->
+    <div id="successModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm hidden items-center justify-center z-50" data-modal="success">
+        <div class="cyber-border bg-gradient-to-br from-cyber-dark to-cyber-gray p-8 max-w-md mx-4 animate-slide-up">
+            <div class="text-center">
+                <!-- Success Animation -->
+                <div class="mb-6">
+                    <div class="w-20 h-20 mx-auto border-4 border-cyber-green rounded-full flex items-center justify-center animate-glow">
+                        <span class="text-3xl text-cyber-green">✓</span>
+                    </div>
+                </div>
+                
+                <h3 class="font-orbitron font-bold text-2xl text-cyber-green mb-4">MISSION COMPLETED!</h3>
+                
+                <div class="font-code space-y-2 mb-6">
+                    <p class="text-cyber-cyan">
+                        🚪 BUNKER DOOR: <span class="text-cyber-green">UNLOCKED</span>
+                    </p>
+                    <p class="text-cyber-orange">
+                        +500 XP EARNED
+                    </p>
+                    <p class="text-cyber-purple">
+                        HTML MASTERY: +25%
+                    </p>
+                </div>
+                
+                <div class="border border-cyber-muted/30 bg-cyber-dark/50 p-4 mb-6">
+                    <p class="font-code text-sm text-cyber-muted">
+                        "Excellent work, Code Warrior! You've successfully accessed the bunker. 
+                        Your HTML skills are developing rapidly. The next challenge awaits..."
+                    </p>
+                </div>
+                
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <button 
+                        data-event="click:nextLevel"
+                        data-implementation="Should load next level or show completion screen"
+                        class="cyber-border bg-gradient-to-r from-cyber-green/20 to-cyber-cyan/20 hover:from-cyber-green/40 hover:to-cyber-cyan/40 px-6 py-3 font-orbitron font-bold transition-all duration-300 flex-1">
+                        NEXT MISSION
+                    </button>
+                    
+                    <button 
+                        data-event="click:reviewCode"
+                        data-implementation="Should show code review or replay option"
+                        class="border border-cyber-muted/30 bg-cyber-dark/50 hover:bg-cyber-muted/10 px-6 py-3 font-orbitron transition-all duration-300">
+                        REVIEW
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- @END_COMPONENT: SuccessModal -->
+    
+    <!-- JavaScript for Prototype Functionality -->
+    <script>
+        (function() {
+            // TODO: Implement business logic, API calls, and state management
+            
+            // Screen Navigation
+            window.showStoryScreen = function() {
+                document.getElementById('landingScreen').classList.add('hidden');
+                document.getElementById('storyScreen').classList.remove('hidden');
+            };
+            
+            window.showLevel1 = function() {
+                document.getElementById('storyScreen').classList.add('hidden');
+                document.getElementById('gameLevel').classList.remove('hidden');
+                // TODO: Initialize Monaco Editor here
+                initializeCodeEditor();
+            };
+            
+            window.showLandingScreen = function() {
+                document.getElementById('storyScreen').classList.add('hidden');
+                document.getElementById('gameLevel').classList.add('hidden');
+                document.getElementById('landingScreen').classList.remove('hidden');
+            };
+            
+            // Monaco Editor Initialization (Placeholder)
+            function initializeCodeEditor() {
+                // TODO: Initialize Monaco Editor with cyberpunk theme and HTML syntax highlighting
+                console.log('Monaco Editor would be initialized here');
+                
+                // Simulate editor initialization
+                setTimeout(() => {
+                    console.log('Monaco Editor ready');
+                }, 1000);
+            }
+            
+            // Code Validation Simulation
+            window.validateCode = function(code) {
+                // TODO: Implement actual HTML validation logic
+                const hasH1 = code.includes('<h1>') && code.includes('</h1>');
+                const hasCorrectText = code.includes('BUNKER ACCESS GRANTED');
+                
+                return {
+                    isValid: hasH1 && hasCorrectText,
+                    requirements: {
+                        h1Tag: hasH1,
+                        correctText: hasCorrectText,
+                        validHTML: true // Simplified for prototype
+                    }
+                };
+            };
+            
+            // Success Modal
+            window.showSuccessModal = function() {
+                document.getElementById('successModal').classList.remove('hidden');
+                document.getElementById('successModal').classList.add('flex');
+            };
+            
+            window.hideSuccessModal = function() {
+                document.getElementById('successModal').classList.add('hidden');
+                document.getElementById('successModal').classList.remove('flex');
+            };
+            
+            // Local Storage for Progress (Placeholder)
+            function saveProgress(level, xp, achievements) {
+                // TODO: Implement localStorage or backend persistence
+                localStorage.setItem('webwar_progress', JSON.stringify({
+                    level: level,
+                    xp: xp,
+                    achievements: achievements,
+                    timestamp: Date.now()
+                }));
+            }
+            
+            function loadProgress() {
+                // TODO: Load saved progress from localStorage or backend
+                const saved = localStorage.getItem('webwar_progress');
+                return saved ? JSON.parse(saved) : null;
+            }
+            
+            // Initialize app
+            document.addEventListener('DOMContentLoaded', function() {
+                // Load any saved progress
+                const progress = loadProgress();
+                if (progress) {
+                    console.log('Loaded progress:', progress);
+                    // TODO: Restore game state from saved progress
+                }
+                
+                // Add interactive sound effects placeholder
+                console.log('Game initialized - Web War: Apocalypse ready!');
+            });
+            
+        })();
+    </script>
+</body>
+</html>
